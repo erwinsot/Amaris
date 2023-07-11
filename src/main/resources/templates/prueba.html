@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Data</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <style>
+        /* Custom styles for the menu */
+        .navbar-dark {
+            background-color: #000000; /* Set the background color to black */
+        }
+        .navbar-dark .navbar-brand img {
+            padding-left: 24px;
+            padding: 10px;
+            width: 151px;
+            height: 90px; /* Set the height of the brand image */
+           
+        }
+        .navbar-dark .navbar-nav .nav-link {
+            color: #ffffff; /* Set the text color to white */
+        }
+        
+    </style>
+    <style>
+        .search-form {
+          margin-top: 20px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        
+        .form-group {
+          margin-bottom: 15px;
+        }
+        
+        label {
+          font-weight: bold;
+          font-size: 18px;
+        }
+        
+        input[type="text"] {
+          width: 300px;
+          height: 40px;
+          padding: 5px;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          font-size: 16px;
+        }
+        
+        button[type="submit"] {
+          background-color: #007bff;
+          color: #fff;
+          border: none;
+          padding: 10px 20px;
+          font-size: 16px;
+          border-radius: 5px;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+        }
+        
+        button[type="submit"]:hover {
+          background-color: #0056b3;
+        }
+        </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="/test-amaris">
+            <img src="https://media.licdn.com/dms/image/C4D0BAQHTIhUhiR4-nQ/company-logo_200_200/0/1600262279545?e=2147483647&v=beta&t=OXYVuiyNYnz9S__NyQvfFk8deTlKxNIZ8FBXPLPjna8" alt="Brand Image">
+        </a>
+        
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/test-amaris/data">Employees</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Services</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Contact</a>
+                </li>
+            </ul>
+        </div>
+    </nav>  
+    <div class="container">  
+        
+        <div th:if="${error}" class="alert alert-danger">
+            <p th:text="${error}"></p>
+        </div>
+        
+    
+        
+
+    <form th:action="@{/data}" th:object="${searchForm}" method="GET" >
+        <div class="form-group">
+            <label for="employeeId">Employee ID:</label>
+            <input type="text" class="form-control" id="employeeId" name="id">
+        </div>
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+    
+
+    <table  class="table" th:if="${data}">
+        <thead >
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Salary</th>
+                <th>Age</th>
+                <th>Profile Image</th>
+                <th>Annual Salary</th>
+            </tr>
+        </thead>
+        
+        <tr >
+            <td th:text="${data.id}"></td>
+            <td th:text="${data.employee_name}"></td>
+            <td th:text="${data.employee_salary}"></td>
+            <td th:text="${data.employee_age}"></td>
+            <td th:text="${data.profile_image}"></td>
+            <td th:text="${data.employee_anual_salary}"></td>
+        </tr>
+    </table>
+
+    <table class="table"  th:if="${dataList}">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Salary</th>
+                <th>Age</th>
+                <th>Profile Image</th>
+                <th>Annual Salary</th>
+            </tr>
+        </thead>
+        <tbody >
+            <tr th:each="employee : ${dataList}">
+                <td th:text="${employee.id}"></td>
+                <td th:text="${employee.employee_name}"></td>
+                <td th:text="${employee.employee_salary}"></td>
+                <td th:text="${employee.employee_age}"></td>
+                <td th:text="${employee.profile_image}"></td>
+                <td th:text="${employee.employee_anual_salary}"></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
+
+    
+</body>
+</html>
